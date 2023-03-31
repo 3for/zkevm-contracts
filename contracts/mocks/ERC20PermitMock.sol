@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0
 
-pragma solidity 0.8.15;
+pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
@@ -23,11 +23,7 @@ contract ERC20PermitMock is ERC20 {
         _burn(msg.sender, amount);
     }
 
-    function transferInternal(
-        address from,
-        address to,
-        uint256 value
-    ) public {
+    function transferInternal(address from, address to, uint256 value) public {
         _transfer(from, to, value);
     }
 
@@ -115,5 +111,18 @@ contract ERC20PermitMock is ERC20 {
         );
         _validateSignedData(owner, encodeData, v, r, s);
         _approve(owner, spender, value);
+    }
+
+    function DOMAIN_SEPARATOR() external view returns (bytes32) {
+        return
+            keccak256(
+                abi.encode(
+                    EIP712DOMAIN_HASH,
+                    NAME_HASH,
+                    VERSION_HASH,
+                    getChainId(),
+                    address(this)
+                )
+            );
     }
 }

@@ -30,8 +30,8 @@ Add a new leaf to the merkle tree
 ```solidity
   function verifyMerkleProof(
     bytes32 leafHash,
-    bytes32[] smtProof,
-    uint64 index,
+    bytes32[32] smtProof,
+    uint32 index,
     bytes32 root
   ) public returns (bool)
 ```
@@ -42,15 +42,16 @@ Verify merkle proof
 | Name | Type | Description                                                          |
 | :--- | :--- | :------------------------------------------------------------------- |
 |`leafHash` | bytes32 | Leaf hash
-|`smtProof` | bytes32[] | Smt proof
-|`index` | uint64 | Index of the leaf
+|`smtProof` | bytes32[32] | Smt proof
+|`index` | uint32 | Index of the leaf
 |`root` | bytes32 | Merkle root
 
 ### getLeafValue
 ```solidity
   function getLeafValue(
+    uint8 leafType,
     uint32 originNetwork,
-    address originTokenAddress,
+    address originAddress,
     uint32 destinationNetwork,
     address destinationAddress,
     uint256 amount,
@@ -63,10 +64,11 @@ Given the leaf data returns the leaf value
 #### Parameters:
 | Name | Type | Description                                                          |
 | :--- | :--- | :------------------------------------------------------------------- |
+|`leafType` | uint8 | Leaf type -->  [0] transfer Ether / ERC20 tokens, [1] message
 |`originNetwork` | uint32 | Origin Network
-|`originTokenAddress` | address | Origin token address, 0 address is reserved for ether
+|`originAddress` | address | [0] Origin token address, 0 address is reserved for ether, [1] msg.sender of the message
 |`destinationNetwork` | uint32 | Destination network
 |`destinationAddress` | address | Destination address
-|`amount` | uint256 | Amount of tokens
+|`amount` | uint256 | [0] Amount of tokens/ether, [1] Amount of ether
 |`metadataHash` | bytes32 | Hash of the metadata
 

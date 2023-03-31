@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   geth:
-    image: ethereum/client-go:v1.10.15
+    image: ethereum/client-go
     environment:
       - DEV_PERIOD
     ports:
@@ -10,6 +10,7 @@ services:
       - ./gethData/geth_data:/geth_data
     entrypoint:
       - geth
+      - --rpc.allow-unprotected-txs
       - --http
       - --http.addr
       - "0.0.0.0"

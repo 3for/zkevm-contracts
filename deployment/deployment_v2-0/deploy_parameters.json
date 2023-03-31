@@ -1,6 +1,0 @@
-{
-    "mnemonic": "test test test test test test test test test test test junk",
-    "numFundAccounts": 5,
-    "trustedSequencerURL": "http://zkevm-json-rpc:8123",
-    "forceBatchAllowed": false
-}
